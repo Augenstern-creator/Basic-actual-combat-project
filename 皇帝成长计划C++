@@ -1,0 +1,324 @@
+#include<iostream>
+#include<string.h>
+#define MAX 3000
+using namespace std;
+
+//设计佳丽结构体
+struct girl
+{
+	//1、姓名
+	string g_name;
+	//2、年龄
+	int    g_age;
+	//3、技能
+	string skill;
+	//4、后宫住址
+	string address;
+	//5、级别
+	string grade;
+
+};
+//设计后宫结构体
+struct family
+{
+	//后宫保存的佳丽人数数组
+	struct girl personArray[MAX];
+	//后宫当前佳丽的人数
+	int g_Size;
+};
+
+
+
+//菜单设计
+void Showmenu()
+{
+	cout << "***************欢迎来到皇帝成长计划*****************" << endl;
+	cout << "      ****                  1、添加三千佳丽[F1]         " << endl;
+	cout << "      ****                  2、显示三千佳丽[F2]         " << endl;
+	cout << "      ****                  3、查找三千佳丽[F3]         " << endl;
+	cout << "      ****                  4、逐出三千佳丽[F4]         " << endl;
+	cout << "      ****                  5、修改三千佳丽[F4]         " << endl;
+	cout << "      ****                  6、王朝更替[F5]         " << endl;
+	cout << "      ****                  0、退朝                 " << endl;
+	cout << "***************欢迎来到皇帝成长计划*****************" << endl;
+	cout << "***************请选择您需要的服务！*****************" << endl;
+
+
+}
+//1、添加三千佳丽[F1]函数
+void Addgirl(family *abs)         //用指针接收地址
+{
+	//首先判断后宫是否满，满则不添加
+	if (abs->g_Size == MAX)
+	{
+		cout << "************************后宫位置已满，皇上注意龙体，臣已命工部全力扩建后宫！************************" << endl;
+	}
+	else
+	{
+		//姓名
+		cout << "************************请皇上赐佳丽姓名：" <<"************************"<< endl;
+		string name;
+		cin >> name;
+		abs->personArray[abs->g_Size].g_name = name;
+		//年龄
+		while (true)
+		{
+			int age;
+			cout << "************************告诉嬷嬷你的芳龄："<<"************************"<< endl;
+			cin >> age;
+			if (age>=16 &&age<=24)
+			{
+				abs->personArray[abs->g_Size].g_age = age;
+				break;
+			}
+			cout << "************************朕只需要与朕年龄相仿的佳丽" <<"************************"<< endl;
+			cout << "************************来人，赐其十两白银，遣送回家" << "************************" << endl;
+			cout << "************************勿让这天下子民认为朕暴淫无道"<<"************************" << endl;
+			system("pause");
+		}
+		
+		//技能
+		cout << "************************俗话说女子无才便是德，告诉嬷嬷你的特长吧：" <<"************************"<< endl;
+		string skill;
+		cin >> skill;
+		abs->personArray[abs->g_Size].skill = skill;
+		cout << "************************朕这里不养闲人，好好发挥你的特长，不要让朕失望！"<<"************************" << endl;
+		system("pause");
+		//后宫住址
+		cout << "************************嬷嬷：皇上，您给佳丽安排个住处吧："<<"************************" << endl;
+		string address;
+		cin >> address;
+		abs->personArray[abs->g_Size].address = address;
+		cout << "************************嗯，也好，朕赐你的住处不错，朕也喜欢，会常去看看，你是否愿意？"<<"************************" << endl; \
+			system("pause");
+		//级别
+		cout << "************************臣妾十分喜欢，谢过陛下"<<"************************" << endl;
+		system("pause");
+		cout << "************************嬷嬷：皇上，赐予佳丽宫名级别吧："<<"************************" << endl;
+		system("pause");
+		cout << "************************嗯，朕差点忘了，取笔来！"<<"************************" << endl;
+		system("pause");
+		cout << "************************皇上，笔已送到，请赐："<<"************************" << endl;
+		string grade;
+		cin >> grade;
+		abs->personArray[abs->g_Size].grade = grade;
+		cout << "************************嗯，就这么赐，希望你不要让朕失望"<<"************************" << endl;
+		system("pause");
+		cout << "************************嬷嬷：皇上，臣请遣人送佳丽回宫"<<"************************" << endl;
+		system("pause");
+		cout << "************************准！"<<"************************" << endl;
+
+		//更新后宫人数
+		abs->g_Size++;
+
+		system("pause");
+		system("cls");
+
+		
+
+
+	}
+
+}
+//2、显示三千佳丽[F2]函数
+void Showgirl(family *abs)
+{
+	//首先判断后宫是否有佳丽
+	if (abs->g_Size == 0)
+	{
+		cout << "********************皇上，今年的选妃还未开始呢！臣已命礼部执操此事，相信很快就会有妃子选拔**********" << endl;
+	}
+	else
+	{
+		for (int i = 0; i < abs->g_Size ; i++)
+		{
+			cout << "姓名：" << abs->personArray[i].g_name << "\t";
+			cout << "年龄：" << abs->personArray[i].g_age << "\t";
+			cout << "技能：" << abs->personArray[i].skill << "\t";
+			cout << "后宫住址：" << abs->personArray[i].address << "\t";
+			cout << "级别：" << abs->personArray[i].grade << endl;
+
+		}
+		
+	}
+	system("pause");
+	system("cls");
+	
+
+}
+// 3、查找三千佳丽[F3]    
+int isExist(family* abs, string name)
+{
+	for (int i = 0; i < abs->g_Size; i++)
+	{
+		if (abs->personArray[i].g_name == name)
+		{
+			return i;
+		}
+	}
+	return -1;
+
+}
+void  Findgirl(family *abs)
+{
+	cout << "请皇上下旨查出佳丽的名字：" << endl;
+	string name;
+	cin >> name;
+	//判断是否有这个名字，调用是否存在函数
+	int ret = isExist(abs, name);
+	if (ret != -1)
+	{
+		cout <<"姓名："<< abs->personArray[ret].g_name << "\t";
+		cout <<"年龄：" <<abs->personArray[ret].g_age << "\t";
+		cout <<"住处："<<abs->personArray[ret].address << "\t";
+		cout <<"级别：" <<abs->personArray[ret].grade << "\t";
+		cout <<"技能：" << abs->personArray[ret].skill << endl;
+	}
+	else
+	{
+		cout << "未找到此佳丽，臣立即派人去国内找此位佳丽！" << endl;
+
+	}
+	system("pause");
+	system("cls");
+
+
+}
+
+//4丶逐出后宫佳丽
+void delectgirl(family *abs)
+{
+	cout << "请皇上下旨需要逐出的佳丽姓名：" << endl;
+	string name;
+	cin >> name;
+	int ret = isExist(abs, name);
+	if (ret != 1)
+	{
+		for (int i = ret; i < abs->g_Size; i++)
+		{
+			abs->personArray[i] = abs->personArray[i + 1];
+		}
+		abs->g_Size--;
+		cout << "逐出成功！" << endl;
+	}
+	else
+	{
+		cout << "皇上，未找到此佳丽~" << endl;
+	}
+	system("pause");
+	system("cls");
+	
+}
+//5丶修改三千佳丽[F4] 
+void modifygirl(family* abs)
+{
+	cout << "请皇上输入要修改佳丽的姓名：" << endl;
+	string name;
+	cin >> name;
+	//进行判断是否有这个人
+	int ret = isExist(abs, name);
+	if (ret != 1)
+	{
+		//1.姓名
+		string name;
+		cout << "请皇上输入修改后的姓名：" << endl;
+		cin >> name;
+		abs->personArray[ret].g_name = name;
+		//2.年龄
+		int age;
+		cout << "请皇上输入修改后的年龄：" << endl;
+		cin >> age;
+		while (true)
+		{
+			if (age < 16 || age>28)
+			{
+				printf("皇上您记错了，佳丽芳龄不是这个数！");
+			}
+			else
+			{
+				abs->personArray[ret].g_age = age;
+				break;
+			}
+		}
+		
+		
+		//3.技能
+		string skill;
+		cout << "请皇上输入修改后的技能：" << endl;
+		cin >> skill;
+		abs->personArray[ret].skill = skill;
+		//4.后宫住址
+		string address;
+		cout << "请皇上输入修改后的住址：" << endl;
+		cin >> address;
+		abs->personArray[ret].address = address;
+		//5.级别
+		string grade;
+		cout << "请皇上重新分配级别：" << endl;
+		cin >> grade;
+		abs->personArray[ret].grade = grade;
+		cout << "修改成功！皇上万岁！" << endl;
+	}
+	else
+	{
+		cout << "皇上无此佳丽~" << endl;
+	}
+	system("pause");
+	system("cls");
+}
+
+//6丶皇朝更替
+
+
+int main()
+{
+	//创建后宫结构体变量
+	family abs;
+	//初始化佳丽人数
+	abs.g_Size = 0;
+
+	while (true)
+	{
+		Showmenu();
+		int select = 0;
+		cin >> select;
+		switch (select)
+		{
+		case 1: //1、添加三千佳丽[F1]
+			Addgirl(&abs);
+			break;
+		case 2:// 2、显示三千佳丽[F2]
+			Showgirl(&abs);
+			break;
+		case 3://3、查找三千佳丽
+			Findgirl(&abs);
+			break;
+		case 4:// 4、逐出三千佳丽[F3]  
+			delectgirl(&abs);
+			break;
+		case 5:// 5、修改三千佳丽[F4] 
+			modifygirl(&abs);
+			break;
+		case 6: //6、王朝更替 
+			break;
+		case 0:// 0、退朝   
+			cout << " ***********************吾皇万岁万岁万万岁！*****************************" << endl;
+			cout << " ***********************吾皇万岁万岁万万岁！*****************************" << endl;
+			cout << " ***********************吾皇万岁万岁万万岁！*****************************" << endl;
+			cout << " ***********************吾皇万岁万岁万万岁！*****************************" << endl;
+			system("pause");
+			return 0;
+			break;
+		default:
+			break;
+		}
+
+	}
+	
+
+
+
+
+	system("pause");
+	return 0;
+}
